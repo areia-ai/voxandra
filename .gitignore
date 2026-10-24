@@ -1,0 +1,36 @@
+node_modules/
+.next/
+.env.local
+.env*.local
+.env.vercel*
+*.pem
+.DS_Store
+*.mp3
+convex.txt
+twilio_credentials.rtf
+palabra.rtf
+# Generated at runtime (or by scripts/generate-bridge-disclosure-audio.mjs's
+# manual QA pass) — regeneratable, never the source of truth. See
+# scripts/realtime-media-worker-disclosures.mjs.
+scripts/cache/
+scripts/disclosure-*.wav
+TEMPORARY_UNLIMITED_CALLS_WARNING.md
+AI_FEATURES_DEFAULT_ENABLED.md
+
+.vercel
+
+# Private working records and internal docs. They are tracked in the private
+# areia-ai/voxandra-internal overlay (see AGENTS.local.md on a maintainer's
+# machine), never in this repository or its history.
+AGENTS.local.md
+CLAUDE.md
+CODEX.md
+LOG.md
+AGENTIC_FUTURE.md
+PRICING_RATIONALE.md
+ROADMAP.md
+PRODUCT_BRIEF.md
+LIVE_TRANSLATION_LATENCY_PLAN.md
+TWILIO_INTEGRATION_PLAN.md
+PRELAUNCH_MAILING_LIST.md
+docs/email-provider-audit.md

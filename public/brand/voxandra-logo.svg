@@ -1,0 +1,13 @@
+<svg width="300" height="72" viewBox="0 0 300 72" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Voxandra logo</title>
+  <desc id="desc">Voxandra wordmark with a geometric white V on a purple rounded app icon mark.</desc>
+  <defs>
+    <linearGradient id="voxandra-logo-violet" x1="12" y1="8" x2="62" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#2E1065"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="56" height="56" rx="16" fill="url(#voxandra-logo-violet)"/>
+  <path d="M20.75 26.15C20.75 22.671 25.3021 21.3733 27.1321 24.3303L36.0717 38.7906L44.8843 24.4037C46.7041 21.4358 51.2675 22.7105 51.2848 26.1903L51.2948 28.2154C51.3005 29.3519 50.986 30.4671 50.3881 31.4337L38.8796 50.0334C37.5651 52.1578 34.4754 52.1652 33.1508 50.0471L21.6769 31.6992C21.0629 30.7174 20.75 29.5829 20.75 28.4253V26.15Z" fill="white"/>
+  <text x="84" y="45" fill="#171511" font-family="Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="32" font-weight="650" letter-spacing="0">Voxandra</text>
+</svg>

@@ -1,0 +1,184 @@
+<!doctype html>
+<!--
+  Throwaway manual proof harness for Spoken Translation Phase 1
+  (internal-only, see AGENTIC_FUTURE.md). Deliberately lives outside src/ so
+  it is never part of the Next.js bundle, lint, tsc, or build surface, and
+  can never be discovered/imported by real product code before the
+  consent/UX/billing work AGENTIC_FUTURE.md requires is done.
+
+  Open this file directly in a browser (file:// is fine) during a live smoke
+  run, or serve it with `python3 -m http.server` from scripts/. Paste in the
+  worker's wss:// URL, a token minted by createOutboundSession (only
+  returned for a workspace on the audio-forward allowlist) or by the
+  scripts/smoke-browser-audio-stream.mjs seed helper, and the matching
+  callId, then Connect.
+
+  Playback assumes PCM16 mono at the sample rate in the "Sample rate" field.
+  Confirm the real value with scripts/probe-translation-audio-format.mjs
+  before trusting what you hear here — 24000 is a placeholder based on every
+  other Realtime API audio path in this codebase, not a confirmed fact about
+  session.output_audio.delta specifically.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Voxandra — browser audio stream harness (internal)</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+  label { display: block; margin-top: 0.75rem; font-size: 0.85rem; color: #444; }
+  input { width: 100%; box-sizing: border-box; padding: 0.4rem; font-family: monospace; }
+  button { margin-top: 1rem; padding: 0.5rem 1rem; }
+  #log { white-space: pre-wrap; font-family: monospace; font-size: 0.8rem; background: #f4f4f4; padding: 0.75rem; margin-top: 1rem; max-height: 320px; overflow-y: auto; }
+  #stats { margin-top: 1rem; font-family: monospace; }
+</style>
+</head>
+<body>
+  <h1>Browser audio stream harness</h1>
+  <p>Internal proof-of-plumbing only — not a product UI. See AGENTIC_FUTURE.md.</p>
+
+  <label>Worker WebSocket URL (wss://worker.voxandra.com/browser/audio-stream or ws://127.0.0.1:PORT/browser/audio-stream)
+    <input id="wsUrl" placeholder="ws://127.0.0.1:8787/browser/audio-stream" />
+  </label>
+  <label>Token
+    <input id="token" />
+  </label>
+  <label>Call ID
+    <input id="callId" />
+  </label>
+  <label>Sample rate (Hz) — confirm with probe-translation-audio-format.mjs
+    <input id="sampleRate" value="24000" />
+  </label>
+  <button id="connectBtn">Connect</button>
+  <button id="disconnectBtn" disabled>Disconnect</button>
+
+  <div id="stats">frames: 0 | bytes: 0 | decode errors: 0 | status: idle</div>
+  <div id="log"></div>
+
+<script>
+let ws;
+let audioCtx;
+let nextPlayTime = 0;
+let frameCount = 0;
+let byteCount = 0;
+let decodeErrors = 0;
+
+const logEl = document.getElementById("log");
+const statsEl = document.getElementById("stats");
+
+function log(message) {
+  const line = `[${new Date().toISOString().slice(11, 23)}] ${message}`;
+  logEl.textContent += line + "\n";
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function updateStats(status) {
+  statsEl.textContent = `frames: ${frameCount} | bytes: ${byteCount} | decode errors: ${decodeErrors} | status: ${status}`;
+}
+
+function base64ToUint8(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
+function playPcm16Frame(bytes, sampleRate) {
+  const sampleCount = Math.floor(bytes.length / 2);
+  if (sampleCount === 0) return;
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const audioBuffer = audioCtx.createBuffer(1, sampleCount, sampleRate);
+  const channel = audioBuffer.getChannelData(0);
+  for (let i = 0; i < sampleCount; i += 1) {
+    channel[i] = view.getInt16(i * 2, true) / 32768;
+  }
+  const source = audioCtx.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(audioCtx.destination);
+  const startAt = Math.max(audioCtx.currentTime, nextPlayTime);
+  source.start(startAt);
+  nextPlayTime = startAt + audioBuffer.duration;
+}
+
+document.getElementById("connectBtn").addEventListener("click", () => {
+  const wsUrl = document.getElementById("wsUrl").value.trim();
+  const token = document.getElementById("token").value.trim();
+  const callId = document.getElementById("callId").value.trim();
+  const sampleRate = Number(document.getElementById("sampleRate").value) || 24000;
+  if (!wsUrl || !token || !callId) {
+    log("Fill in WebSocket URL, token, and call ID first.");
+    return;
+  }
+
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  nextPlayTime = 0;
+  frameCount = 0;
+  byteCount = 0;
+  decodeErrors = 0;
+  updateStats("connecting");
+
+  const url = `${wsUrl}?token=${encodeURIComponent(token)}&callId=${encodeURIComponent(callId)}`;
+  ws = new WebSocket(url);
+
+  ws.addEventListener("open", () => {
+    log("WebSocket open.");
+    updateStats("connected");
+    document.getElementById("connectBtn").disabled = true;
+    document.getElementById("disconnectBtn").disabled = false;
+  });
+
+  ws.addEventListener("message", (event) => {
+    let frame;
+    try {
+      frame = JSON.parse(event.data);
+    } catch {
+      decodeErrors += 1;
+      updateStats("connected");
+      return;
+    }
+    if (frame.type === "translation_audio_ready") {
+      log(`Ready. targetLanguage=${frame.targetLanguage}`);
+      return;
+    }
+    if (frame.type === "translation_audio_delta") {
+      frameCount += 1;
+      try {
+        const bytes = base64ToUint8(frame.payload);
+        byteCount += bytes.length;
+        playPcm16Frame(bytes, sampleRate);
+      } catch (error) {
+        decodeErrors += 1;
+        log(`Decode error on sequence ${frame.sequence}: ${error.message}`);
+      }
+      updateStats("streaming");
+      return;
+    }
+    if (frame.type === "translation_audio_end") {
+      log("Call ended.");
+      updateStats("ended");
+      return;
+    }
+    if (frame.type === "translation_audio_error") {
+      log(`Server rejected the connection: ${frame.reason}`);
+      updateStats("rejected");
+    }
+  });
+
+  ws.addEventListener("close", () => {
+    log("WebSocket closed.");
+    updateStats("closed");
+    document.getElementById("connectBtn").disabled = false;
+    document.getElementById("disconnectBtn").disabled = true;
+  });
+
+  ws.addEventListener("error", () => {
+    log("WebSocket error.");
+  });
+});
+
+document.getElementById("disconnectBtn").addEventListener("click", () => {
+  ws?.close();
+  audioCtx?.close();
+});
+</script>
+</body>
+</html>

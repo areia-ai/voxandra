@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/* Voxandra toggles dark mode explicitly via data-theme, not OS preference, so `dark:` utilities
+   key off that attribute instead of Tailwind's default prefers-color-scheme media query. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: #faf8f4;
+  --foreground: #171511;
+
+  /* Brand — single accent used across the app; teal is reserved for rate/pricing copy only. */
+  --voxandra-purple: #3b1676;
+  --voxandra-purple-dark: #2e1065;
+  --voxandra-violet: #7c3aed;
+  --voxandra-green: #22c55e;
+  --voxandra-emerald: #16a34a;
+
+  /* Semantic surface + status tokens so components stop hardcoding hex/stone shades ad hoc. */
+  --surface: #ffffff;
+  --surface-muted: #fbf8f2;
+  --surface-sunken: #f5f1e9;
+  --border-subtle: #e7e2d8;
+
+  --status-success-bg: #ecfdf5;
+  --status-success-border: #a7f3d0;
+  --status-success-text: #065f46;
+
+  --status-warning-bg: #fffbeb;
+  --status-warning-border: #fde68a;
+  --status-warning-text: #78350f;
+
+  --status-danger-bg: #fff1f2;
+  --status-danger-border: #fecdd3;
+  --status-danger-text: #9f1239;
+
+  --status-info-bg: #f5f3ff;
+  --status-info-border: #ddd6fe;
+  --status-info-text: #4c1d95;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Public narrative surfaces. These keep the landing page quieter than the app UI. */
+  --landing-bg: #faf8f4;
+  --landing-bg-warm: #fffaf4;
+  --landing-ink: #171511;
+  --landing-muted: #68635c;
+  --landing-line: #ded8ce;
+  --landing-violet-soft: #f3effb;
+  --landing-section-space: clamp(4rem, 8vw, 7.5rem);
+  --landing-shadow-soft: 0 18px 55px rgba(46, 16, 101, 0.08);
+  --landing-shadow-focus: 0 30px 90px rgba(46, 16, 101, 0.13);
+}
+
+/* Not scoped to :root — dark mode is opt-in per subtree (the authenticated /app shell only),
+   so this must also match when the attribute lives on a wrapper element, not just <html>. */
+[data-theme="dark"] {
+  --background: #14120f;
+  --foreground: #f5f2ec;
+
+  --surface: #1c1a16;
+  --surface-muted: #221f1a;
+  --surface-sunken: #29251f;
+  --border-subtle: #35312a;
+
+  --status-success-bg: #052e21;
+  --status-success-border: #0f6848;
+  --status-success-text: #6ee7b7;
+
+  --status-warning-bg: #2c2108;
+  --status-warning-border: #78530f;
+  --status-warning-text: #fcd34d;
+
+  --status-danger-bg: #2c0e14;
+  --status-danger-border: #7f1d3a;
+  --status-danger-text: #fda4af;
+
+  --status-info-bg: #1e1a33;
+  --status-info-border: #4c3d8f;
+  --status-info-text: #ddd6fe;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-border-subtle: var(--border-subtle);
+  --color-brand: var(--voxandra-purple);
+  --color-brand-dark: var(--voxandra-purple-dark);
+  --color-brand-accent: var(--voxandra-violet);
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-editorial: "Newsreader", Georgia, serif;
+}
+
+.font-editorial {
+  font-family: var(--font-newsreader), var(--font-editorial);
+}
+
+.landing-section {
+  padding-block: var(--landing-section-space);
+}
+
+.landing-eyebrow {
+  color: var(--voxandra-purple);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.landing-rule {
+  border-color: var(--landing-line);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Thin, unobtrusive scrollbars everywhere instead of fully hidden ones — long
+   pages (Wallet) and fixed-height panels (the reminders kanban columns) need
+   some affordance that content continues below the fold. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-subtle) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--border-subtle);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--voxandra-violet);
+}
+
+button,
+a,
+input,
+textarea {
+  letter-spacing: 0;
+}
+
+::selection {
+  background: var(--voxandra-purple);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: var(--voxandra-purple);
+  color: #ffffff;
+}
+
+/* Baseline keyboard-focus indicator for any interactive element that doesn't
+   define its own focus-visible/focus:ring Tailwind utility — most buttons in
+   this codebase do, in which case that class's higher specificity wins over
+   this bare element selector and this rule never applies. This only fills
+   gaps, it doesn't override deliberate focus styling. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--voxandra-violet);
+  outline-offset: 2px;
+}

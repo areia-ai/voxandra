@@ -1,0 +1,56 @@
+# Voxandra
+
+> Voxandra is an AI platform for multilingual business calls. It translates both sides of live phone conversations, provides private guidance while people talk, and turns each call into a reviewed Call Record.
+
+Voxandra is a web application operated by Areia Labs. It is built for teams whose work depends on consequential external phone calls, in three lanes: moving goods (freight forwarding and customs, import-export and sourcing, supplier and payment follow-up), moving deals (international sales and account management, customer onboarding and activation, compliance-heavy support), and moving cases (relocation and immigration agencies, insurance and claims operations, background verification).
+
+Key facts:
+
+- Calls are made from the browser; the other party receives a normal phone call and installs nothing.
+- After each call, the AI drafts a note with the transcript, extracted details (reference numbers, dates, documents, commitments), action items, and reminders. Nothing updates the shared team record until a person reviews and confirms it.
+- Live Voice Translation lets both people keep speaking their own language. The called person answers a normal phone call and installs nothing. A spoken disclosure plays before translated conversation begins.
+- Live Guidance provides private in-call prompts to the caller and works during translated calls.
+- Calls bill with a 60-second minimum, then by started minute. Per-destination rates are shown before dialing: $0.06/min to the US and Canada, $0.08 to the UK and Germany, $0.09 to France, $0.11 to Spain and Portugal.
+- Pricing (monthly, USD, via Stripe, cancel anytime, no annual contract): Solo $29 (1 seat), Starter $49 (5 seats), Team $149 (8 seats), Operations $449 (12 seats), and custom Enterprise for 13+ seats. Every paid plan includes Live Guidance and Live Voice Translation; plans differ by volume and seats.
+- Live Voice Translation includes 5 minutes on Solo, 10 on Starter, 30 on Team, and 120 on Operations. Overage is $0.35/min on Solo and Starter, $0.30/min on Team, and $0.25/min on Operations. Live Guidance allowances and rates remain separate. One credit balance pays for calls and realtime overage.
+- Calling without a subscription is possible with prepaid top-up credits ($10–$100); AI features (notes, transcripts, extraction, Live Guidance) require an active plan.
+- The calling allowance included with a plan resets monthly. Purchased top-up credits never expire. One credit balance covers call minutes and any Live Guidance or Live Translation beyond a plan's included minutes.
+- The sign-in-only translated trial remains release-gated pending live acceptance; no SMS verification or separate daily trial budget is required.
+- A US/Canada calling number can be rented for $3/month; arbitrary caller-ID spoofing is not allowed.
+- Raw call audio is not stored by default.
+
+## Supported spoken languages
+
+{{VOICE_TRANSLATION_LANGUAGES}}
+
+Both participants choose a language before calling. Only enabled languages are listed; provider capability alone does not establish Voxandra availability.
+
+## Pages
+
+- [Homepage — product, use cases, pricing, FAQ](https://voxandra.com/)
+- [Live Voice Translation for Business Calls](https://voxandra.com/live-voice-translation)
+- [Voxandra MCP Server — developer docs, API/tool reference, client setup](https://voxandra.com/mcp)
+- [Blog](https://voxandra.com/blog)
+- [Privacy Policy](https://voxandra.com/privacy)
+- [Terms of Service](https://voxandra.com/terms)
+- [Acceptable Use Policy](https://voxandra.com/acceptable-use)
+
+## Developer resources
+
+The Voxandra MCP server — a Model Context Protocol (MCP) server — is Voxandra's developer and API surface. It lets AI agents and developer tools query a workspace's call records, transcripts, reminders, contacts, and work threads directly. It is read-only in v1 by explicit product decision: no write tools, no call-placing tools, no billing data.
+
+- [Voxandra MCP Server documentation](https://voxandra.com/mcp) — tool reference, security posture, and client setup snippets for Claude Code, Codex, Cursor, OpenClaw, and Hermes. Also reachable at /docs, /developers, and /api-docs.
+- Endpoint: `https://voxandra.com/api/mcp` (also reachable at `https://voxandra.com/mcp` via POST) — MCP Streamable HTTP transport, authenticated with a `vx_`-prefixed personal API key created in the app's MCP section (`/app/mcp`) and sent as `Authorization: Bearer vx_YOUR_KEY`.
+- [MCP server card](https://voxandra.com/.well-known/mcp/server-card.json) — machine-readable server metadata (SEP-1649 format): protocol version, transport, auth, and the full tool list.
+- [MCP discovery manifest](https://voxandra.com/.well-known/mcp) — machine-readable endpoint and auth discovery (SEP-1960 format).
+- `GET https://voxandra.com/mcp` with `Accept: application/json` returns the same server card; with `Accept: text/markdown` it returns the docs page as Markdown.
+- Voxandra MCP tools: `search_call_records`, `get_call_record`, `list_call_records`, `list_reminders`, `list_contacts`, `list_threads`, `get_thread`, `pre_call_brief`.
+
+## Content negotiation
+
+Public pages support `Accept: text/markdown` (per acceptmarkdown.com) and return clean Markdown at the same URL: the homepage (`/`), Live Voice Translation (`/live-voice-translation`), the MCP docs (`/mcp`), the blog index (`/blog`), and every post (`/blog/<slug>`). Nonexistent paths return a real HTTP 404 with a Markdown body listing recovery links.
+
+## Optional
+
+- [Log in / free trial call](https://voxandra.com/login)
+- Contact: voxandra@agentmail.to

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "brand-and-time",
+    "source": "Mañana voy a Pingo Doce a las doce.",
+    "required": ["pingo doce", "twelve"],
+    "forbidden": ["bingo", "ocelot"]
+  },
+  {
+    "id": "store-and-product",
+    "source": "Voy a comprar plátanos verdes en Auchan.",
+    "required": ["green bananas", "auchan"],
+    "forbidden": ["exercise", "blood sugar"]
+  },
+  {
+    "id": "reference-number",
+    "source": "El pedido número cuarenta y dos llegará el viernes por la mañana.",
+    "required": ["order number forty-two", "friday morning"],
+    "forbidden": ["fifty-two", "monday"]
+  },
+  {
+    "id": "amount",
+    "source": "La factura pendiente es de mil doscientos cincuenta euros con cincuenta céntimos.",
+    "required": ["one thousand two hundred fifty euros", "fifty cents"],
+    "forbidden": ["dollars"]
+  },
+  {
+    "id": "uncertainty",
+    "source": "No estoy segura, creo que podría llegar entre las tres y las cuatro.",
+    "required": ["not sure", "between three and four"],
+    "forbidden": ["will arrive at three"]
+  },
+  {
+    "id": "no-hallucinated-medical-content",
+    "source": "No, me dijo que voy a ir a servirles agua.",
+    "required": ["serve them water"],
+    "forbidden": ["blood sugar", "gym", "exercise", "collapse"]
+  }
+]

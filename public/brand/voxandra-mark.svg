@@ -1,0 +1,12 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Voxandra mark</title>
+  <desc id="desc">A geometric white V on a purple rounded app icon mark.</desc>
+  <defs>
+    <linearGradient id="voxandra-mark-violet" x1="18" y1="14" x2="82" y2="86" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#2E1065"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="76" height="76" rx="22" fill="url(#voxandra-mark-violet)"/>
+  <path d="M27.5 34.5C27.5 29.8056 33.6515 28.0549 36.1215 32.0459L48.1995 51.5624L60.105 32.1455C62.5614 28.1397 68.7281 29.8594 68.7514 34.5579L68.765 37.2919C68.7726 38.8256 68.3482 40.3304 67.541 41.6347L51.9974 66.7513C50.2233 69.6176 46.053 69.6275 44.2653 66.7697L28.7686 42.0011C27.9398 40.6765 27.5 39.1452 27.5 37.5826V34.5Z" fill="white"/>
+</svg>
