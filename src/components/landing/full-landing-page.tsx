@@ -7,6 +7,9 @@ import { LandingHero } from "@/components/landing/landing-hero";
 import { HomeStructuredData } from "@/components/landing/structured-data";
 import { HowItWorksSection } from "@/components/landing/how-it-works-section";
 import { McpSection } from "@/components/landing/mcp-section";
+import { OpenSourceSection } from "@/components/landing/open-source-section";
+import { Reveal } from "@/components/landing/reveal";
+import { LearnMoreChevron } from "@/components/landing/landing-icons";
 import { LandingFooter } from "@/components/landing/landing-footer";
 import { PricingSection } from "@/components/landing/pricing-section";
 import { newsreader } from "@/components/landing/editorial-font";
@@ -38,10 +41,12 @@ export function FullLandingPage() {
         </div>
       </section>
       <HowItWorksSection />
-      <section id="business-uses" className="scroll-mt-24 border-y landing-rule bg-white/50">
-        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-          <h2 className="max-w-xl text-3xl font-semibold leading-tight tracking-tight md:text-4xl">Business doesn’t stop at a language barrier.</h2>
-          <div className="mt-8 grid gap-6 border-b landing-rule pb-8 sm:grid-cols-3 sm:gap-5 lg:gap-8">
+      <section id="business-uses" className="landing-section scroll-mt-24 border-y landing-rule bg-white/50">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <Reveal>
+            <h2 className="max-w-xl text-3xl font-semibold leading-[1.02] tracking-[-0.035em] md:text-5xl">Business doesn’t stop at a language barrier.</h2>
+          </Reveal>
+          <div className="mt-10 grid gap-6 border-b landing-rule pb-10 sm:grid-cols-3 sm:gap-5 lg:gap-8">
             {industryLanes.map(({ title, description, image, alt }) => <article key={title} className="grid grid-cols-[6rem_minmax(0,1fr)] items-start gap-4 sm:block">
               <Image src={image} alt={alt} width={1200} height={800} sizes="(max-width: 639px) 96px, (max-width: 1279px) 33vw, 400px" className="aspect-square w-24 rounded-xl object-cover object-[60%_center] sm:aspect-[16/10] sm:w-full" />
               <div className="sm:mt-4">
@@ -50,12 +55,12 @@ export function FullLandingPage() {
               </div>
             </article>)}
           </div>
-          <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          <div className="mt-12 grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
             <div>
               <h3 className="text-lg font-semibold">Choose your languages</h3>
               <p className="mt-2 text-sm leading-6 text-stone-600">{languages.length} languages available for either side of the call.</p>
               <p className="mt-3 text-sm leading-7 text-stone-600">{languages.map(({ label }) => label).join(" · ")}</p>
-              <Link href="/live-voice-translation" className="mt-3 inline-flex text-sm font-semibold text-violet-800 underline underline-offset-4">About translated calls</Link>
+              <Link href="/live-voice-translation" className="t-learn mt-3 inline-flex items-center gap-1 text-sm font-semibold text-violet-800">About translated calls <LearnMoreChevron /></Link>
             </div>
             <div>
               <h3 className="text-lg font-semibold">You stay in control</h3>
@@ -70,11 +75,14 @@ export function FullLandingPage() {
       </section>
       <PricingSection />
       <McpSection />
-      <section id="start-calling" aria-labelledby="closing-cta-heading" className="scroll-mt-24 border-t landing-rule bg-[#f3effb]">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+      <OpenSourceSection />
+      <section id="start-calling" aria-labelledby="closing-cta-heading" className="landing-section scroll-mt-24 border-t landing-rule bg-[#f3effb]">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
           <div className="min-w-0">
-            <h2 id="closing-cta-heading" className="max-w-3xl text-4xl font-semibold leading-[1.12] tracking-tight md:text-5xl">Your next business call,<br className="hidden sm:block" /> <span className="font-editorial font-medium italic">in their language.</span></h2>
-            <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">Nothing for them to install. Important details ready for your review.</p>
+            <Reveal>
+              <h2 id="closing-cta-heading" className="max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-0.035em] md:text-5xl">Your next business call,<br className="hidden sm:block" /> <span className="font-editorial font-medium italic tracking-[-0.02em]">in their language.</span></h2>
+              <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">Nothing for them to install. Important details ready for your review.</p>
+            </Reveal>
             <Link href="/login?redirect=/app/dialer" className="mt-7 inline-flex items-center gap-2 rounded-lg bg-[#3b1676] px-5 py-3 text-sm font-semibold text-white hover:bg-[#2e1065]">Start a translated call <ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>
             <p className="mt-4 max-w-lg text-sm leading-6 text-stone-500">{publicTranslatedTrialEnabled() ? "Sign in, choose both languages, and try one free 90-second translated call. No card required." : "Create a workspace, choose a paid plan, and pick both languages. Try a free standard call first."}</p>
           </div>

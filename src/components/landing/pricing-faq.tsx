@@ -5,6 +5,7 @@ import Link from "next/link";
 import { publicTranslatedTrialEnabled } from "@/lib/translated-trial";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { faqItems } from "./faq-data";
+import { Reveal } from "./reveal";
 
 export function PricingFAQ() {
   const [openItemId, setOpenItemId] = useState<string | null>(
@@ -13,19 +14,19 @@ export function PricingFAQ() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <div className="text-center">
-        <p className="text-sm font-semibold uppercase tracking-wider text-[#6d28d9]">
+      <Reveal className="text-center">
+        <p className="landing-eyebrow">
           FAQ
         </p>
-        <h3 className="mt-3 text-3xl font-semibold leading-tight text-stone-950 md:text-4xl">
+        <h3 className="mt-4 text-3xl font-semibold leading-[1.02] tracking-[-0.035em] text-stone-950 md:text-5xl">
           Frequently asked questions
         </h3>
         <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-stone-600">
           What to know before your first call.
         </p>
-      </div>
+      </Reveal>
 
-      <div className="mt-8 overflow-hidden rounded-xl border border-stone-200/80 bg-white shadow-sm">
+      <div className="landing-card mt-10 overflow-hidden rounded-2xl">
         {faqItems.map((item) => {
           const isOpen = openItemId === item.id;
           const answerId = `pricing-faq-answer-${item.id}`;
@@ -33,7 +34,7 @@ export function PricingFAQ() {
           return (
             <div
               key={item.id}
-              className="border-b border-stone-200/80 last:border-b-0"
+              className="border-b border-[var(--landing-line)] last:border-b-0"
             >
               <button
                 type="button"
@@ -76,7 +77,7 @@ export function PricingFAQ() {
         })}
       </div>
 
-      <div className="mx-auto mt-6 flex max-w-2xl flex-col items-center justify-between gap-3 rounded-xl border border-[#6d28d9]/15 bg-white px-5 py-4 text-center shadow-sm sm:flex-row sm:text-left">
+      <div className="landing-card mx-auto mt-6 flex max-w-2xl flex-col items-center justify-between gap-3 rounded-2xl px-5 py-4 text-center sm:flex-row sm:text-left">
         <p className="text-sm leading-6 text-stone-600">
           Still deciding?
         </p>

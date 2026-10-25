@@ -9,7 +9,8 @@ Voxandra should feel like an exact, calm operator sitting beside a multilingual 
 - Geist is the body, navigation, control, and product-interface face.
 - Newsreader is the editorial display face. Use it selectively for meaningful phrases in major headings, never for UI controls or long body copy.
 - Body text starts at 16px with generous line height. Metadata may use 12–14px.
-- Headlines use compact leading and natural sentence case. Give the hero’s sans-serif and editorial phrases an explicit 16–20px gap; their different font metrics must not collide. Keep 28–32px between the headline, body copy and primary action. Eyebrows are rare, short, and use the shared `landing-eyebrow` style.
+- Headlines use compact leading and natural sentence case. The hero headline is the largest type on the site: 48px mobile up to 96px desktop, line-height 0.95, letter-spacing -0.05em. Section headlines use line-height 1.02 and -0.035em. Give the hero’s sans-serif and editorial phrases an explicit 16–20px gap; their different font metrics must not collide. Keep 28–32px between the headline, body copy and primary action.
+- Small labels are Geist Mono, uppercase, 11px, 0.14em tracking: `landing-eyebrow` (brand purple) for section eyebrows and `landing-label` (muted) for column and row labels. Eyebrows are rare and short. The main sections carry a two-digit index (`landing-eyebrow-index`) in the order they appear.
 
 ## Color
 
@@ -17,7 +18,7 @@ Voxandra should feel like an exact, calm operator sitting beside a multilingual 
 - Warm opening surface: `#fffaf4`
 - Primary ink: `#171511`
 - Muted text: `#68635c`
-- Structural line: `#ded8ce`
+- Structural line: `#e4dfd6` (hairline, 1px)
 - Brand purple: `#3b1676`
 - Brand violet: `#7c3aed`
 - Soft violet: `#f3effb`
@@ -38,7 +39,7 @@ Use gradients only to create shallow depth around the primary product story. Do 
 - Primary button: compact rectangular shape, 8px radius, deep purple fill, white text. One primary CTA label: `Start a translated call`.
 - Secondary action: text link or quiet outlined control. Do not give secondary actions primary-button weight.
 - Cards represent a real grouped object such as a plan, a Call Record, or a workflow lane. Supporting facts use rules, columns, or plain rows. Pricing cards compare price, seats and usage; show shared features once below the cards. Keep included minutes and overage rates visible, align checkout controls, and use quiet rows for Enterprise and Calls only.
-- Default surface radius: 16px. Reserve 24–28px radii and the focus shadow for the main product story and final CTA.
+- Card surfaces use `landing-card`: translucent white over the page, a 1px hairline, no shadow. Default surface radius: 16px. Reserve 24–28px radii and the focus shadow for the main product story and final CTA.
 - Use Lucide icons only when they improve scanning or convey status. Do not put every icon in a colored rounded square.
 - Keep photography tied to a business use: the goods, deals and cases lanes use a coordinated warm editorial set, with landscape crops on desktop and compact square thumbnails on mobile. Avoid standalone decorative photo sections. Its compact hero pairs number entry with a labeled translation, private Guidance, and pending-review Call Record example. On mobile these stack without a horizontal rail. Generated scenes are illustrative, not customer testimonials; prompts and asset provenance live in `docs/landing-imagery.md`.
 
@@ -46,7 +47,10 @@ Use gradients only to create shallow depth around the primary product story. Do 
 
 - One scroll-directed motion sequence per page: the four-stage call-to-record story. Never advance it on a timer.
 - Hover and press feedback may respond to direct interaction.
-- Do not animate every section on scroll.
+- Section heading groups (eyebrow, headline, lead) may rise in once with the staggered blur from transitions.dev's texts reveal, through `<Reveal>`. Only the heading group moves, never body copy, cards or controls, and the server HTML is never hidden.
+- The hero enters with CSS keyframes so it plays before hydration. Fill mode stays `backwards` so no transform remains on the dialer, whose sign-up modal is fixed-positioned.
+- The open-source badge may carry a slow shimmer that rests most of its cycle. Secondary text links may use the learn-more chevron hover.
+- Reveal styles must not set `display`; flex rows keep their layout.
 - `prefers-reduced-motion` must show a complete, useful static state without autoplay.
 
 ## Never do

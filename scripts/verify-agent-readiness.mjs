@@ -76,6 +76,9 @@ const llmsTxt = read("public/llms.txt");
 assertIncludes(llmsTxt, "https://voxandra.com/mcp", "llms.txt lists the MCP docs page");
 assertIncludes(llmsTxt, "Developer resources", "llms.txt has a developer resources section");
 assertIncludes(llmsTxt, "Model Context Protocol", "llms.txt names the MCP protocol");
+assertIncludes(llmsTxt, "## Open source", "llms.txt has an open-source section");
+assertIncludes(llmsTxt, "https://github.com/areia-ai/voxandra", "llms.txt links the public repo");
+assertIncludes(llmsTxt, "AGPL-3.0", "llms.txt names the license");
 
 const sitemap = read("src/app/sitemap.ts");
 assertIncludes(sitemap, "/mcp`", "sitemap lists /mcp");
@@ -121,6 +124,8 @@ assertIncludes(structuredData, "contactType", "contactPoint declares contactType
 assertIncludes(structuredData, '"@type": "PostalAddress"', "Organization schema has address");
 assertIncludes(structuredData, "addressCountry", "address declares a country");
 assertIncludes(structuredData, "sameAs", "Organization schema has sameAs");
+assertIncludes(structuredData, '"@type": "SoftwareSourceCode"', "schema declares the source repository");
+assertIncludes(structuredData, "codeRepository: OPEN_SOURCE_REPO_URL", "source schema links the repo");
 // Every sameAs profile must be a live, absolute https URL — an unresolvable
 // entry is a broken entity signal. Verify a profile in a browser (not curl:
 // X, Instagram, and LinkedIn all reject non-browser clients) before adding

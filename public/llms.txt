@@ -18,6 +18,7 @@ Key facts:
 - The sign-in-only translated trial remains release-gated pending live acceptance; no SMS verification or separate daily trial budget is required.
 - A US/Canada calling number can be rented for $3/month; arbitrary caller-ID spoofing is not allowed.
 - Raw call audio is not stored by default.
+- Voxandra is open source under the GNU Affero General Public License v3.0 (AGPL-3.0). The hosted service at voxandra.com, with its paid plans and prepaid credits, is unchanged; self-hosting is an option, not a replacement.
 
 ## Supported spoken languages
 
@@ -34,6 +35,12 @@ Both participants choose a language before calling. Only enabled languages are l
 - [Privacy Policy](https://voxandra.com/privacy)
 - [Terms of Service](https://voxandra.com/terms)
 - [Acceptable Use Policy](https://voxandra.com/acceptable-use)
+
+## Open source
+
+- [Source code on GitHub](https://github.com/areia-ai/voxandra) — the full stack: the Next.js app, the Convex backend, and the realtime media worker that carries translated calls.
+- [License: AGPL-3.0](https://github.com/areia-ai/voxandra/blob/master/LICENSE). Running a modified version as a network service means offering your source code to its users. The license does not cover the Voxandra name or the brand assets in `public/brand`.
+- [Self-hosting setup (README)](https://github.com/areia-ai/voxandra#readme) and [contributing guide](https://github.com/areia-ai/voxandra/blob/master/CONTRIBUTING.md). Contributions require a signed contributor license agreement.
 
 ## Developer resources
 

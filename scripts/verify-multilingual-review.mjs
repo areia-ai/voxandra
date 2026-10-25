@@ -1022,6 +1022,10 @@ assertIncludes(pricingFaq, "Need more? Buy credits", "overage solution");
 assertIncludes(pricingFaq, "Every paid plan includes monthly", "feature parity");
 assertIncludes(pricingFaq, "require a paid plan", "paid AI features");
 assertIncludes(pricingFaq, "Can I cancel?", "cancellation");
+assertIncludes(pricingFaq, "Is Voxandra open source?", "FAQ answers the open-source question");
+assertIncludes(pricingFaq, "Can I run Voxandra myself?", "FAQ answers the self-host question");
+assertIncludes(pricingFaq, "offer its users the source code", "FAQ states the AGPL network-service obligation");
+assertIncludes(pricingFaq, "brand assets in public/brand", "FAQ excludes the name and brand assets");
 assertIncludes(pricingFaq, "Ask a question", "support path");
 assertNotIncludes(pricingFaq, "transcript import", "pricing FAQ avoids transcript import positioning");
 assertNotIncludes(pricingFaq, "Do unused credits roll over?", "credit FAQ question no longer implies a rollover window");
@@ -1791,6 +1795,7 @@ const publicCustomerCopy = [
   "src/components/landing/landing-footer.tsx",
   "src/components/landing/landing-header.tsx",
   "src/components/landing/landing-hero.tsx",
+  "src/components/landing/open-source-section.tsx",
   "src/components/landing/pricing-card.tsx",
   "src/components/landing/pricing-checkout-button.tsx",
   "src/components/landing/pricing-faq.tsx",
@@ -1844,6 +1849,7 @@ const landingComponentCopy = [
   "src/components/landing/landing-header.tsx",
   "src/components/landing/landing-hero.tsx",
   "src/components/landing/mcp-section.tsx",
+  "src/components/landing/open-source-section.tsx",
   "src/components/landing/pricing-faq.tsx",
   "src/components/landing/pricing-section.tsx",
   "src/components/landing/signup-call-modal.tsx",
@@ -1898,6 +1904,20 @@ assertIncludes(landingHero, "publicTranslatedTrialEnabled()", "conditional trial
 assertIncludes(landingHero, "href=\"/login?redirect=/app/dialer\"", "auth handoff");
 assertIncludes(landingHero, "LandingDialer", "compact interactive dialer");
 assertNotIncludes(landingHero, "Voxandra turns important browser calls", "landing hero avoids old output-list subheading");
+// Open source is a trust signal next to the hosted product, not a replacement
+// for it: badge in the hero, link in the nav and footer, one section, FAQ.
+assertIncludes(landingHero, "OPEN_SOURCE_REPO_URL", "hero badge links to the public repo");
+assertIncludes(read("src/components/landing/landing-header.tsx"), "OPEN_SOURCE_REPO_URL", "nav links to the public repo");
+const landingFooterSource = read("src/components/landing/landing-footer.tsx");
+for (const expected of ["OPEN_SOURCE_REPO_URL", "OPEN_SOURCE_LICENSE_URL", "OPEN_SOURCE_CONTRIBUTING_URL"]) {
+  assertIncludes(landingFooterSource, expected, `footer links ${expected}`);
+}
+const openSourceSection = read("src/components/landing/open-source-section.tsx");
+assertIncludes(openSourceSection, "OPEN_SOURCE_README_URL", "open-source section points self-hosting at the README");
+assertIncludes(openSourceSection, "Self-host it", "open-source section has the secondary self-host action");
+assertIncludes(openSourceSection, "hosted version at voxandra.com", "open-source section keeps the hosted product first");
+assertIncludes(read("src/components/landing/full-landing-page.tsx"), "<OpenSourceSection />", "landing renders the open-source section");
+assertIncludes(read("src/lib/open-source.ts"), "https://github.com/areia-ai/voxandra", "open-source links point at areia-ai/voxandra");
 assertNotIncludes(landingHero, "Free 90-second trial call", "landing hero proof row avoids duration");
 assertNotIncludes(landingHero, "90 enabled destinations", "landing hero proof row avoids excess destination proof");
 assertNotIncludes(landingHero, "AI Phone Copilot ready for review", "landing hero proof row avoids redundant product proof");

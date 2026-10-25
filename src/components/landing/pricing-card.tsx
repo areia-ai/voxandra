@@ -6,8 +6,8 @@ export function PricingCard({
   badge, featured = false, ctaText, ctaHref, publicCheckout,
 }: PublicPricingPlan) {
   return (
-    <div className={`relative flex h-full flex-col rounded-2xl border bg-white p-5 md:p-6 ${
-      featured ? "border-violet-700 ring-1 ring-violet-700/20" : "border-stone-200"
+    <div className={`relative flex h-full flex-col rounded-2xl border p-5 md:p-6 ${
+      featured ? "border-violet-700 bg-white ring-1 ring-violet-700/20" : "border-[var(--landing-line)] bg-[var(--landing-surface)]"
     }`}>
       <div className="flex min-h-6 flex-wrap items-center justify-between gap-2">
         <h3 className="text-lg font-semibold text-stone-950">{name}</h3>
@@ -19,7 +19,7 @@ export function PricingCard({
       </div>
       {seats && <p className="mt-3 text-sm font-semibold text-stone-900">{seats}</p>}
       {credits && <p className="mt-1 text-sm leading-5 text-stone-600">{credits}</p>}
-      <dl className="my-5 grid gap-3 border-t border-stone-200 pt-4">
+      <dl className="my-5 grid gap-3 border-t border-[var(--landing-line)] pt-4">
         {liveFeatureCallouts?.map((callout) => (
           <div key={callout.title}>
             <dt className="text-sm font-medium text-stone-900">{callout.title}</dt>

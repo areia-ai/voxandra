@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import Link from "next/link";
 import { publicTranslatedTrialEnabled } from "@/lib/translated-trial";
 import { motion, useReducedMotion } from "motion/react";
+import { Reveal } from "@/components/landing/reveal";
 import {
   Phone,
   FileSearch,
@@ -907,15 +908,15 @@ export function HowItWorksSection() {
       className="relative border-y landing-rule bg-white/45"
     >
       <div className="landing-section relative mx-auto max-w-7xl px-5 md:px-8">
-        <div className="max-w-3xl">
-          <p className="landing-eyebrow">How it works</p>
-          <h2 className="mt-4 text-4xl font-semibold leading-[1.04] text-stone-950 md:text-5xl">
-            One call. <span className="font-editorial italic font-medium">Less to carry.</span>
+        <Reveal className="max-w-3xl">
+          <p className="landing-eyebrow"><span className="landing-eyebrow-index">01</span>How it works</p>
+          <h2 className="mt-4 text-4xl font-semibold leading-[1.02] tracking-[-0.035em] text-stone-950 md:text-6xl">
+            One call. <span className="font-editorial italic font-medium tracking-[-0.02em]">Less to carry.</span>
           </h2>
           <p className="mt-4 text-base leading-7 text-stone-600 md:text-lg">
             See a supplier call become a clear next step.
           </p>
-        </div>
+        </Reveal>
 
         {!isDesktop && <MobileWalkthrough reduceMotion={Boolean(reduceMotion)} />}
 

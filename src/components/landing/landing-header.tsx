@@ -11,7 +11,9 @@ import {
   useTransform,
 } from "motion/react";
 import { VoxandraLogo } from "@/components/brand/voxandra-logo";
+import { GitHubMark } from "@/components/landing/landing-icons";
 import { useSignedInHint } from "@/components/landing/use-signed-in-hint";
+import { OPEN_SOURCE_REPO_URL } from "@/lib/open-source";
 
 export function LandingHeader() {
   const prefersReducedMotion = useReducedMotion();
@@ -88,7 +90,7 @@ export function LandingHeader() {
           <div>
             <VoxandraLogo href="/" />
           </div>
-          <nav className="flex items-center gap-2">
+          <nav className="flex items-center gap-1.5 sm:gap-2">
             <Link
               href="#pricing"
               className="hidden rounded-md px-3 py-2 text-sm font-semibold text-[#2e1065] transition hover:bg-white/55 hover:text-[#1f0b49] md:inline-flex"
@@ -107,6 +109,16 @@ export function LandingHeader() {
             >
               Blog
             </Link>
+            <a
+              href={OPEN_SOURCE_REPO_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Voxandra source code on GitHub"
+              className="inline-flex h-9 w-9 items-center justify-center gap-2 rounded-md text-sm font-semibold text-[#2e1065] transition hover:bg-white/55 hover:text-[#1f0b49] md:h-auto md:w-auto md:px-3 md:py-2"
+            >
+              <GitHubMark className="h-[1.125rem] w-[1.125rem]" />
+              <span className="hidden md:inline">GitHub</span>
+            </a>
             {isAuthenticated ? (
               <Link
                 href="/app"

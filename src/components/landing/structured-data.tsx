@@ -1,5 +1,6 @@
 import { faqItems } from "./faq-data";
 import { publicMemoryPlans } from "@/lib/pricing";
+import { OPEN_SOURCE_LICENSE_SPDX_URL, OPEN_SOURCE_REPO_URL } from "@/lib/open-source";
 
 const BASE_URL = "https://voxandra.com";
 
@@ -96,7 +97,19 @@ function buildHomeGraph() {
         description: PRODUCT_DEFINITION,
         url: BASE_URL,
         publisher: { "@id": `${BASE_URL}/#organization` },
+        license: OPEN_SOURCE_LICENSE_SPDX_URL,
         offers,
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": `${BASE_URL}/#source-code`,
+        name: "Voxandra",
+        codeRepository: OPEN_SOURCE_REPO_URL,
+        license: OPEN_SOURCE_LICENSE_SPDX_URL,
+        programmingLanguage: "TypeScript",
+        runtimePlatform: "Node.js",
+        targetProduct: { "@id": `${BASE_URL}/#software` },
+        publisher: { "@id": `${BASE_URL}/#organization` },
       },
       {
         "@type": "FAQPage",

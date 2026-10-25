@@ -1,5 +1,8 @@
 import { publicTranslatedTrialEnabled } from "@/lib/translated-trial";
 import { getPublicVoiceTranslationLanguageNames } from "@/lib/live-translation-languages";
+import { OPEN_SOURCE_REPO_URL } from "@/lib/open-source";
+
+const repoLabel = OPEN_SOURCE_REPO_URL.replace("https://", "");
 
 export interface FAQItem { id: string; question: string; answer: string; }
 
@@ -18,5 +21,7 @@ export const faqItems: FAQItem[] = [
   { id: "credit-expiry", question: "Do credits expire?", answer: "Purchased top-up credits never expire. The credits and minutes included with your plan reset each billing cycle." },
   { id: "subscription-or-credits", question: "Do I need a subscription?", answer: (publicTranslatedTrialEnabled() ? "The free translated trial needs no subscription. " : "The free standard trial needs no subscription. ") + "Afterward, translation, Guidance, and AI Call Records require a paid plan. Standard calls are also available with credits alone. Plans differ by seats and volume, not by which AI features they include." },
   { id: "data-privacy", question: "What happens to my call data?", answer: "Transcripts, notes, and reviewed details stay in your workspace. Transient recordings are deleted after processing; there is no retained audio player or download. You review the AI draft before it updates the shared record." },
+  { id: "open-source", question: "Is Voxandra open source?", answer: `Yes. The full source, including the web app, the Convex backend, and the realtime media worker, is public at ${repoLabel} under the GNU Affero General Public License v3.0 (AGPL-3.0). Anyone can read how calls, translation, and Call Records are handled. voxandra.com is the hosted version, with paid plans and prepaid calling credits.` },
+  { id: "self-host", question: "Can I run Voxandra myself?", answer: "Yes. You can self-host the whole stack: the Next.js app, the Convex backend, and the realtime media worker, using your own provider accounts. The README on GitHub covers setup. If you run a modified version as a network service, the AGPL requires you to offer its users the source code of your version. The license does not grant rights to the Voxandra name or the brand assets in public/brand." },
   { id: "commitment", question: "Can I cancel?", answer: "Yes. Plans are monthly, with no annual contract. Cancel through the billing portal and keep access until the billing period ends. Purchased top-up credits never expire." },
 ];

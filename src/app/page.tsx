@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     absolute: "Live AI Voice Translation for Business Calls | Voxandra",
   },
   description:
-    "Voxandra is an AI platform for multilingual business calls. It translates both sides of live phone conversations, provides private guidance while people talk, and turns each call into a reviewed Call Record.",
+    "Voxandra is an AI platform for multilingual business calls. It translates both sides of live phone conversations, provides private guidance while people talk, and turns each call into a reviewed Call Record. Open source under AGPL-3.0.",
   alternates: {
     canonical: "/",
   },

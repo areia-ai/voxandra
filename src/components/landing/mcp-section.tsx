@@ -1,16 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, FileText, ShieldCheck } from "lucide-react";
+import { FileText, ShieldCheck } from "lucide-react";
 import { MCP_CLIENTS } from "@/lib/mcp/tools-list";
+import { LearnMoreChevron } from "@/components/landing/landing-icons";
+import { Reveal } from "@/components/landing/reveal";
 
 export function McpSection() {
   return (
-    <section id="mcp" aria-labelledby="mcp-heading" className="scroll-mt-24 border-t landing-rule">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 md:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-16 lg:py-20">
+    <section id="mcp" aria-labelledby="mcp-heading" className="landing-section scroll-mt-24 border-t landing-rule">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 md:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
         <div className="min-w-0">
-          <p className="landing-eyebrow">Works with your AI tools</p>
-          <h2 id="mcp-heading" className="mt-4 max-w-xl text-3xl font-semibold leading-[1.15] tracking-tight md:text-4xl">Bring your Call Records<br className="hidden xl:block" /> to your AI tools.</h2>
-          <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">Connect through MCP so your AI can find what was agreed, check open follow-ups, and help you prepare for the next call using your reviewed records.</p>
+          <Reveal>
+            <p className="landing-eyebrow"><span className="landing-eyebrow-index">03</span>Works with your AI tools</p>
+            <h2 id="mcp-heading" className="mt-4 max-w-xl text-3xl font-semibold leading-[1.02] tracking-[-0.035em] md:text-5xl">Bring your Call Records<br className="hidden xl:block" /> to your AI tools.</h2>
+            <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">Connect through MCP so your AI can find what was agreed, check open follow-ups, and help you prepare for the next call using your reviewed records.</p>
+          </Reveal>
           <ul aria-label="Compatible MCP clients" className="mt-6 flex flex-wrap gap-x-5 gap-y-3">
             {MCP_CLIENTS.map((client) => (
               <li key={client.key} className="inline-flex items-center gap-2 text-sm font-medium text-stone-700">
@@ -22,13 +26,13 @@ export function McpSection() {
             ))}
           </ul>
           <p className="mt-3 text-sm leading-6 text-stone-500">Or another MCP-compatible client.</p>
-          <Link href="/mcp" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-violet-800 underline underline-offset-4">See the MCP setup guide <ArrowUpRight aria-hidden="true" className="h-4 w-4" /></Link>
+          <Link href="/mcp" className="t-learn mt-6 inline-flex items-center gap-1 text-sm font-semibold text-violet-800">See the MCP setup guide <LearnMoreChevron /></Link>
           <div className="mt-7 flex items-start gap-2.5 border-t landing-rule pt-5">
             <ShieldCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-violet-800" />
             <p className="max-w-lg text-sm leading-6 text-stone-600">Read-only access to your workspace. It cannot place calls or change your data. Revoke your API key whenever you need to.</p>
           </div>
         </div>
-        <figure className="min-w-0 rounded-2xl border landing-rule bg-white shadow-[var(--landing-shadow-soft)]">
+        <figure className="landing-card min-w-0 rounded-2xl">
           <figcaption className="flex flex-wrap items-center justify-between gap-2 border-b landing-rule px-5 py-4 sm:px-7">
             <span className="text-sm font-semibold text-stone-800">Your AI + Voxandra</span>
             <span className="text-xs text-stone-500">Illustrative example</span>

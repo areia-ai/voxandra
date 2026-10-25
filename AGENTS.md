@@ -62,6 +62,7 @@ This guide refers to some documents that are not in the public repository: `LOG.
 - Banned marketing words in public customer copy (enforced case-insensitively by `npm test`): streamline, seamless, empower, unlock, revolutioni*, cutting-edge, best-in-class, world-class, leverage, supercharge, game-chang*. `Text-only`/`text-only` is also banned in landing components — Voice Translation is two-way *spoken* translation.
 - Realtime rate constants come in pairs. `LIVE_COPILOT_*` and `TRANSLATED_CAPTIONS_*` overage must each stay at or above `REALTIME_MINIMUM_MARGIN_MULTIPLE` times their own cost estimate, or `assertRealtimeFeatureOverageMargin` throws **at call start**. Never edit a cost estimate without moving its overage rate in the same change; `npm test` enforces this arithmetically.
 - Do not show raw model names, internal diagnostics, demo controls, or provider configuration in customer UI.
+- Open source (AGPL-3.0, `github.com/areia-ai/voxandra`) is a trust signal and a self-host option beside the hosted product, never a replacement for it: the hero badge, nav and footer links, the one open-source section, and two FAQ entries. Sign-up stays the primary CTA; "Self-host it" stays secondary. Repository URLs live in `src/lib/open-source.ts`.
 
 ## Blog Posts (SEO/GEO)
 
