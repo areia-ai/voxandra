@@ -182,6 +182,7 @@ Run `node scripts/test-translated-trial.mjs` for offline sign-in, normal destina
 - Do not commit `.env*`, local credentials, generated build output, or large local test assets.
 - `next-env.d.ts` should import `./.next/types/routes.d.ts`; Next dev can sometimes rewrite it to `./.next/dev/types/routes.d.ts`. Restore the committed form if it changes during local dev.
 - Convex `_generated` files should only change as a result of `npx convex codegen`.
+- Outside contributions need a signed contributor license agreement (`ICLA.md` or `CCLA.md`) before merging; `.github/workflows/cla.yml` asks for it on each pull request and stores signatures on the `cla-signatures` branch. Never edit that branch or its signature file by hand, and never merge a pull request whose CLA check has not passed.
 - Keep `LOG.md` updated for meaningful product, architecture, billing, AI, or navigation changes.
 
 ## UX Guardrails

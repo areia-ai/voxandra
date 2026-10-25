@@ -137,7 +137,7 @@ The `test:*-smoke`, `probe:*`, `eval:*`, and `prewarm:*` scripts call paid provi
 
 ## Contributing
 
-Issues and pull requests are welcome. Read [`AGENTS.md`](AGENTS.md) before making a substantial change, since several of its rules are enforced by `npm test`. Before opening a PR, run `npm test`, `npm run lint`, and `npm run build`.
+Pull requests are open. [`CONTRIBUTING.md`](CONTRIBUTING.md) covers the contributor license agreement you'll be asked to sign along the way ([individual](ICLA.md) or [entity](CCLA.md)), where to report bugs and security issues, and the checks to run before opening a PR.
 
 Never commit secrets, real phone numbers, or customer data. Use placeholder values in tests and docs.
 
